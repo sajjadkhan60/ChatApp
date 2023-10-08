@@ -1,0 +1,39 @@
+.form-btn {
+  background-color: #e5fbff;
+  padding: 15px;
+  border-radius: 15px;
+  width: 100%;
+  color: darkgrey;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  margin-top: 20px;
+  outline: none;
+  border: none;
+  font-weight: 400;
+}
+.form-btn:hover {
+  background-color: #b3f2ff;
+}
+.form-btn:active {
+  background-color: #80e9ff;
+}
+@media (max-width: 768px) {
+  .form-btn {
+    background-color: #e5fbff;
+    padding: 15px;
+    border-radius: 15px;
+    width: 100%;
+    color: darkgrey;
+    color: rgb(0, 0, 0);
+    font-size: 16px !important;
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    font-weight: 400;
+  }
+}
+
+button:disabled {
+  background-color: #d9d8d8 !important;
+  color: black !important;
+}
