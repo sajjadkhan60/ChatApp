@@ -4,8 +4,11 @@ import Button from "../../components/button/Button";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { logIn } from "../../redux/user/userActions";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ Login }) {
   const [state, setState] = useState({
     password: "",
     email: "",
@@ -15,6 +18,8 @@ function Login() {
   });
 
   const { password, email, error, submitting, success } = state;
+
+  const navigate = useNavigate();
 
   const setInputs = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -45,6 +50,10 @@ function Login() {
           submitting: false,
           success: "Logged In Successfully. Redirecting you to chat...",
         });
+        Login(user.user.uid);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } catch (error) {
         if (error.code === "auth/invalid-login-credentials") {
           setState({
@@ -56,6 +65,13 @@ function Login() {
           setState({
             ...state,
             error: "Password should be at least 6 characters.",
+            success: "",
+          });
+        } else if (error.code === "auth/too-many-requests") {
+          setState({
+            ...state,
+            error:
+              "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.  ",
             success: "",
           });
         } else {
@@ -80,7 +96,7 @@ function Login() {
                 <div className="row">
                   <div className="col-12">
                     {error.length > 0 ? (
-                      <div className="alert alert-danger">{error}</div>
+                      <div className="alert alert-danger ">{error}</div>
                     ) : (
                       <div></div>
                     )}
@@ -143,4 +159,12 @@ function Login() {
   );
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Login: (data) => {
+      dispatch(logIn(data));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
