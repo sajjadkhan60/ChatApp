@@ -1,0 +1,117 @@
+/* Main */
+body {
+  letter-spacing: 0.5px;
+}
+.main {
+  height: calc(
+    100vh - 40px
+  ); /* Adjust the value to control the space from the top and bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 20px 0; /* Equal top and bottom margin */
+  background-color: white;
+  border-radius: 30px;
+  padding: 15px;
+}
+
+.loader {
+  width: 35px;
+  height: 35px;
+  border: 3px solid black;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: block;
+  box-sizing: border-box;
+  animation: rotation 0.7s linear infinite;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  margin-left: 150px;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  height: 93vh;
+  border-radius: 30px;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  height: 15vh;
+}
+.search {
+  height: 10vh;
+  padding-top: 7px;
+}
+.user-img {
+  width: 90px; /* Set the width of the container */
+  height: 90px; /* Set the height of the container */ /* Set the URL of your image */
+  background-size: cover; /* Maintain the image's aspect ratio and fit it within the container */
+  background-position: center top; /* Center the image horizontally and vertically */
+  background-repeat: no-repeat;
+  border-radius: 50%; /* Prevent the image from repeating */
+}
+.user_name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.username {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* Chats */
+.chats {
+  height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.chats-heading {
+  font-size: 23px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+/* Profile */
+.single-chat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.single-chat:hover {
+  background-color: #e5fbff;
+}
+.single-chat .user-img {
+  width: 50px; /* Set the width of the container */
+  height: 50px; /* Set the height of the container */ /* Set the URL of your image */
+  background-size: cover; /* Maintain the image's aspect ratio and fit it within the container */
+  background-position: center top; /* Center the image horizontally and vertically */
+  background-repeat: no-repeat;
+  border-radius: 50%; /* Prevent the image from repeating */
+}
+.single-chat .user_name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.single-chat .username {
+  font-size: 18px;
+  font-weight: 400;
+}

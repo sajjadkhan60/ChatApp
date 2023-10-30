@@ -3,44 +3,47 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { db } from "../firebaseconfig";
 import { getDocs, collection, query, where } from "firebase/firestore";
-import Sidebar from "./Sidebar";
-import LoadingBar from "react-top-loading-bar";
+import Loading from "./Loading";
 
-function Chat({ user }) {
+function Profile({ user }) {
   const [state, setState] = useState(null);
-  const [progress, setProgress] = useState(null);
   useEffect(() => {
-    setProgress(60);
     const getDocumentByUID = async () => {
       const q = query(collection(db, "users"), where("uid", "==", user));
 
       try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
           setState(doc.data());
         });
-        setProgress(100);
       } catch (error) {
         console.error("Error getting document:", error);
       }
     };
     getDocumentByUID();
-    document.title = "Chat";
   }, []);
   return (
     <>
-      <LoadingBar color="black" progress={progress} />
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <div className="main">
-              <div className="row">
-                <div className="col-md-4">{<Sidebar />}</div>
-                <div className="col-md-8"></div>
+      <div className="container ">
+        <div className="row p-0">
+          {state ? (
+            <div className="row p-0">
+              <div className="profile">
+                <div
+                  className="user-img"
+                  style={{ backgroundImage: `url(${state.avatar})` }}
+                ></div>
+                <div className="user_details">
+                  <div className="user_name">{state.name}</div>
+                  <div className="username">@{state.username}</div>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="col-12 text-center loader-div">
+              <Loading />
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -53,4 +56,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Chat);
+export default connect(mapStateToProps)(Profile);

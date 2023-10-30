@@ -77,6 +77,7 @@ function Register() {
           email,
           password
         );
+        console.log("User returned is : ", user);
         var uid = user.user.uid;
 
         // Upload the avatar to Firebase Storage
