@@ -1,6 +1,6 @@
 import React from "react";
 
-function SingleChat({ chats }) {
+function SingleChat({ chat }) {
   return (
     <>
       <div className="container pe-0 mt-2">
@@ -10,14 +10,14 @@ function SingleChat({ chats }) {
               <div
                 className="user-img"
                 style={{
-                  backgroundImage: `url(${chats.avatar})`,
+                  backgroundImage: `url(${chat.avatar})`,
                 }}
               ></div>
               <div className="user_details">
-                <div className="user_name" style={{ marginBottom: "-3px" }}>
-                  {chats.name}
+                <div className="user_name" style={{ marginBottom: "-1px" }}>
+                  {chat.name}
                 </div>
-                <div className="last_message">{chats.username}</div>
+                <div className="last_message">{chat.username}</div>
               </div>
             </div>
           </div>

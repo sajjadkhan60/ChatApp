@@ -10,18 +10,23 @@ function Chats({ user }) {
   const [chats, setChats] = useState(null);
 
   const getFriendDetails = async (frienduid) => {
-    console.log(frienduid);
-    const q2 = query(collection(db, "users"), where("uid", "==", frienduid[0]));
-
-    try {
-      const querySnapshot = await getDocs(q2);
-      querySnapshot.forEach((doc) => {
-        setChats(doc.data());
-      });
-      console.log("State is : ", chats);
-    } catch (error) {
-      console.error("Error getting document:", error);
+    const users = [];
+    for (let i = 0; i < frienduid.length; i++) {
+      const q2 = query(
+        collection(db, "users"),
+        where("uid", "==", frienduid[i])
+      );
+      try {
+        const querySnapshot = await getDocs(q2);
+        querySnapshot.forEach((doc) => {
+          users.push(doc.data());
+        });
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
     }
+    // Append the users to the existing chats array
+    setChats(users);
   };
 
   useEffect(() => {
@@ -44,11 +49,15 @@ function Chats({ user }) {
   return (
     <div>
       <div className="chats-heading">Chats</div>
-      {chats ? (
-        <div className="chats">{<SingleChat chats={chats} />} </div>
-      ) : (
+      {chats === null ? (
         <div className="col-12 text-center loader-div">
           <Loading />
+        </div>
+      ) : (
+        <div className="chats">
+          {chats.map((chat) => (
+            <SingleChat chat={chat} key={chat.uid} />
+          ))}
         </div>
       )}
     </div>
