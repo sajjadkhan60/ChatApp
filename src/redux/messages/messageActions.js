@@ -7,8 +7,8 @@ export const selectChat = (user) => {
   };
 };
 
-// export const logOut = () => {
-//   return {
-//     type: messageActionTypes.LOG_OUT,
-//   };
-// };
+export const closeChat = () => {
+  return {
+    type: messageActionTypes.CLOSECHAT,
+  };
+};

@@ -49,7 +49,7 @@ function Chat({ user, selectedChat, selectedChatUser }) {
                   {selectedChat ? (
                     <div className="row">
                       <div className="col-8">{<Messages />}</div>
-                      <div className="col-4 pe-4 ">
+                      <div className="col-4 pe-0 ">
                         {<SelectedChatUser user={selectedChatUser} />}
                       </div>
                     </div>

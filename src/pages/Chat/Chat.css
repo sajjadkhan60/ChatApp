@@ -131,7 +131,12 @@ body {
   border-radius: 10px;
 }
 .single-chat:hover {
-  background-color: #e5fbff;
+  background-color: #e4e3e3;
+  cursor: pointer;
+}
+.active {
+  background-color: #e4e3e3;
+  border-radius: 10px;
 }
 .single-chat .user-img {
   width: 50px; /* Set the width of the container */
@@ -169,6 +174,7 @@ body {
 
 /* Select Chat Details */
 .selectedChatUserDetails {
+  position: relative;
   padding-top: 30px;
   text-align: center;
   display: flex;
@@ -210,4 +216,31 @@ body {
 .otherDetails .detail {
   font-size: 17px;
   font-weight: 400;
+}
+.close-icon {
+  position: absolute;
+  right: -12px;
+  top: 0px;
+  background-color: #f7f6f6;
+  padding: 5px;
+  border-radius: 50%;
+  width: 35px;
+  transition: 0.2s;
+  font-weight: 600;
+  display: none;
+}
+.close-icon:hover {
+  cursor: pointer;
+  background-color: #e6e5e5;
+}
+
+.close-icon:active {
+  background-color: #d5d4d4;
+}
+.user-profile {
+  height: 92vh;
+  padding-right: 30px;
+}
+.user-profile:hover .close-icon {
+  display: block;
 }

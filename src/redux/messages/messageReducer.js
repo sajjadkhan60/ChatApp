@@ -13,6 +13,12 @@ const messageReducer = (state = initialState, action) => {
         selectedChat: true,
         selectedChatUser: action.payload,
       };
+    case messageActionTypes.CLOSECHAT:
+      return {
+        ...state,
+        selectedChat: null,
+        selectedChatUser: null,
+      };
     default:
       return state;
   }

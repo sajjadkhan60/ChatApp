@@ -1,16 +1,25 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectChat } from "../../redux/messages/messageActions";
 
 function SingleChat({ chat }) {
   const dispatch = useDispatch();
+  const selectedChatUser = useSelector(
+    (state) => state.messages.selectedChatUser
+  );
+
   function handleChatClick() {
     dispatch(selectChat(chat));
-    console.log(chat);
   }
+
   return (
     <>
-      <div className="container pe-0 mt-2">
+      {/* <div
+        className={`container pe-0 mt-2 ${
+          chat.uid === selectedChatUser.uid ? "active" : ""
+        }`}
+      > */}
+      <div className="container">
         <div className="row pe-0">
           <div className="row pe-0">
             <div className="single-chat" onClick={handleChatClick}>
