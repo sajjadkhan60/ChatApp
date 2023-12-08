@@ -64,7 +64,9 @@ function Chats({ user, setChats, chats }) {
 
   return (
     <div>
-      <div className="chats-heading">Chats</div>
+      <div className="chats-heading" style={{ marginTop: "10px" }}>
+        Chats
+      </div>
       {chats === null ? (
         <div className="col-12 text-center loader-div">
           <Loading />

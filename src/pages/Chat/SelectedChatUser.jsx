@@ -34,33 +34,35 @@ function SelectedChatUser({ user }) {
           </div>
         </div>
         <div className="divider"></div>
-        <div className="otherDetails">
-          <div className="title">Phone</div>
-          <div className="detail">{user.number}</div>
-        </div>
-        <div className="otherDetails">
-          <div className="title">Description</div>
-          <div className="detail">No Description</div>
-        </div>
-        <div className="otherDetails pb-0">
-          <div className="title">Email</div>
-          <div className="detail">{user.email}</div>
-        </div>
-        <div className="divider"></div>
-        <div className="otherDetails pb-0 ">
-          <div className="title">Shared Files</div>
-          <br />
-          <br />
-          {state ? (
-            <div className="detail text-center">No files to show</div>
-          ) : (
-            <div
-              className="detail text-center"
-              style={{ marginLeft: "-50px", marginTop: "-25px" }}
-            >
-              {<Loading />}
-            </div>
-          )}
+        <div className="profile-below-details">
+          <div className="otherDetails">
+            <div className="title">Phone</div>
+            <div className="detail">{user.number}</div>
+          </div>
+          <div className="otherDetails">
+            <div className="title">Description</div>
+            <div className="detail">No Description</div>
+          </div>
+          <div className="otherDetails pb-0">
+            <div className="title">Email</div>
+            <div className="detail">{user.email}</div>
+          </div>
+          <div className="divider"></div>
+          <div className="otherDetails pb-0 ">
+            <div className="title">Files</div>
+            <br />
+
+            {state ? (
+              <div className="detail text-center">No files to show</div>
+            ) : (
+              <div
+                className="detail text-center"
+                style={{ marginLeft: "-50px", marginTop: "5px" }}
+              >
+                {<Loading />}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

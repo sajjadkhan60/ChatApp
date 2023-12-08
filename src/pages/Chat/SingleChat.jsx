@@ -14,12 +14,12 @@ function SingleChat({ chat }) {
 
   return (
     <>
-      {/* <div
-        className={`container pe-0 mt-2 ${
+      <div
+        className={`container pe-0 mt-1 ${
           chat.uid === selectedChatUser.uid ? "active" : ""
         }`}
-      > */}
-      <div className="container">
+      >
+        {/* <div className="container"> */}
         <div className="row pe-0">
           <div className="row pe-0">
             <div className="single-chat" onClick={handleChatClick}>

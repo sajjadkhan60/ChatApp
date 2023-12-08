@@ -6,7 +6,7 @@ function SearchResults({ results, searchQuery }) {
   return (
     <div>
       <div className="">
-        <div className="chats-heading mb-2">
+        <div className="chats-heading" style={{ marginTop: "10px" }}>
           Results for <b style={{ fontWeight: "700" }}>'{searchQuery}' </b>
         </div>
         {results === null ? (

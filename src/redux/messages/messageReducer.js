@@ -1,8 +1,17 @@
 import messageActionTypes from "./messageActionTypes";
 
 const initialState = {
-  selectedChat: null,
-  selectedChatUser: null,
+  selectedChat: "",
+  selectedChatUser: "",
+  messages: [
+    {
+      id: "Test ID",
+      content: "Test Message",
+      sender: "Test Sender",
+      receiver: "Test Receiver",
+      timestamp: "Test Time",
+    },
+  ],
 };
 
 const messageReducer = (state = initialState, action) => {
@@ -16,8 +25,13 @@ const messageReducer = (state = initialState, action) => {
     case messageActionTypes.CLOSECHAT:
       return {
         ...state,
-        selectedChat: null,
-        selectedChatUser: null,
+        selectedChat: "",
+        selectedChatUser: "",
+      };
+    case messageActionTypes.ADDMESSAGE:
+      return {
+        ...state,
+        messages: [...state.messages, action.payload],
       };
     default:
       return state;

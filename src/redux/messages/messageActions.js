@@ -12,3 +12,10 @@ export const closeChat = () => {
     type: messageActionTypes.CLOSECHAT,
   };
 };
+
+export const addMessage = (message) => {
+  return {
+    type: messageActionTypes.ADDMESSAGE,
+    payload: message,
+  };
+};

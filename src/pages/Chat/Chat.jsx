@@ -48,7 +48,9 @@ function Chat({ user, selectedChat, selectedChatUser }) {
                 <div className="col-md-8">
                   {selectedChat ? (
                     <div className="row">
-                      <div className="col-8">{<Messages />}</div>
+                      <div className="col-8 ps-0">
+                        {<Messages user={selectedChatUser} />}
+                      </div>
                       <div className="col-4 pe-0 ">
                         {<SelectedChatUser user={selectedChatUser} />}
                       </div>
