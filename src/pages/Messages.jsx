@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../redux/messages/messageActions";
+import { openModal, closeModal } from "../redux/messages/messageActions";
 import Loading from "./Chat/Loading";
 import { db } from "./firebaseconfig";
 import { MdOutlineAttachFile } from "react-icons/md";
@@ -30,6 +31,9 @@ function Messages({ user }) {
     (state) => state.messages.selectedChatUser
   );
   const combinedIds = `${loggedInUser}_${selectedChatUser.uid}`;
+  function openPicture(imageUrl) {
+    dispatch(openModal(imageUrl));
+  }
   let filteredMessages = [];
   useEffect(() => {
     setMessagesFinal([]);
@@ -270,13 +274,23 @@ function Messages({ user }) {
                     msg.images.length > 1 ? (
                       <div className="message-images">
                         {msg.images.map((image) => (
-                          <img src={`${image}`} alt="Message Image" />
+                          <img
+                            key={image} // Assuming each image URL is unique
+                            src={`${image}`}
+                            alt="Picture"
+                            onClick={() => openPicture(image)} // Use an arrow function or bind
+                          />
                         ))}
                       </div>
                     ) : (
                       msg.images.map((image) => (
                         <div className="message-image" key={image}>
-                          <img src={`${image}`} alt="Message Image" />
+                          <img
+                            key={image} // Assuming each image URL is unique
+                            src={`${image}`}
+                            alt="Picture"
+                            onClick={() => openPicture(image)} // Use an arrow function or bind
+                          />
                         </div>
                       ))
                     )

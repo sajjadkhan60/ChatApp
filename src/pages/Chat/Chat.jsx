@@ -8,10 +8,15 @@ import SelectedChatUser from "./SelectedChatUser";
 import LoadingBar from "react-top-loading-bar";
 import Loading from "./Loading";
 import Messages from "../Messages";
+import Modal from "./Modal";
+import { useSelector } from "react-redux";
 
 function Chat({ user, selectedChat, selectedChatUser }) {
   const [state, setState] = useState(null);
   const [progress, setProgress] = useState(null);
+  const modal = useSelector((state) => state.messages.modal);
+  const modalPic = useSelector((state) => state.messages.modalPicSelected);
+
   useEffect(() => {
     const getDocumentByUID = async () => {
       setProgress(20);
@@ -38,6 +43,7 @@ function Chat({ user, selectedChat, selectedChatUser }) {
   }, []);
   return (
     <>
+      {modal ? <div>{<Modal modalPic={modalPic} />}</div> : <div></div>}
       <LoadingBar color="black" progress={progress} />
       <div className="container">
         <div className="row">

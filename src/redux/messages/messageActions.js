@@ -19,3 +19,16 @@ export const addMessage = (message) => {
     payload: message,
   };
 };
+
+export const openModal = (picUrl) => {
+  return {
+    type: messageActionTypes.OPENMODAL,
+    payload: picUrl,
+  };
+};
+
+export const closeModal = () => {
+  return {
+    type: messageActionTypes.CLOSEMODAL,
+  };
+};

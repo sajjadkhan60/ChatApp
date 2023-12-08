@@ -12,6 +12,8 @@ const initialState = {
       timestamp: "Test Time",
     },
   ],
+  modal: null,
+  modalPicSelected: null,
 };
 
 const messageReducer = (state = initialState, action) => {
@@ -32,6 +34,20 @@ const messageReducer = (state = initialState, action) => {
       return {
         ...state,
         messages: [...state.messages, action.payload],
+      };
+
+    case messageActionTypes.OPENMODAL:
+      return {
+        ...state,
+        modal: true,
+        modalPicSelected: action.payload,
+      };
+
+    case messageActionTypes.CLOSEMODAL:
+      return {
+        ...state,
+        modal: null,
+        modalPicSelected: null,
       };
     default:
       return state;
