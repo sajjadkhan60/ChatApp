@@ -42,6 +42,7 @@ body {
   border-radius: 30px;
   max-width: 300px;
   min-width: 200px;
+  position: relative;
 }
 
 /* Profile */
@@ -74,6 +75,8 @@ body {
 }
 
 /* Chats */
+.chats-section {
+}
 .chats {
   height: 67.5vh;
   overflow-y: hidden;
@@ -182,6 +185,7 @@ body {
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  padding-left: 30px;
 }
 .selectedChatUserDetails .user-img {
   width: 180px; /* Set the width of the container */
@@ -208,6 +212,7 @@ body {
 }
 .otherDetails {
   padding-bottom: 20px;
+  padding-left: 20px;
 }
 .otherDetails .title {
   font-size: 18px;
@@ -281,6 +286,10 @@ body {
 .main-messages-section .send-message-input {
   background-color: white !important;
 }
+/* input:focus {
+  background-color: white;
+  box-shadow: 0px 1px 3px 0px #a7a4a4;
+} */
 .main-messages-section .messages-area {
   overflow: auto;
   padding: 30px;
@@ -379,7 +388,7 @@ body {
   overflow: auto;
 }
 .main-messages-section .messages-area .single-message {
-  max-width: 80%;
+  max-width: 60%;
   background-color: #a7a4a4;
   border-radius: 10px;
   margin-top: 5px;
@@ -432,9 +441,9 @@ body {
 }
 .main-messages-section .messages-area .single-message .time {
   text-align: right;
-  color: #555; /* Adjust the color as needed */
-  font-size: 11px; /* Adjust the font size as needed */
-  margin-top: 4px; /* Add margin to separate the time from the message */
+  color: #555;
+  font-size: 11px;
+  margin-top: 4px;
 }
 .no-communication-message {
   font-size: 18px;
@@ -583,4 +592,137 @@ body {
 }
 .modals .content .close-modals:active {
   background-color: #d5d4d4;
+}
+
+.addChatOption {
+  width: 60px;
+  height: 60px;
+  background-color: #ececec;
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 25px -10px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.addChatOption:hover {
+  background-color: #d9d8d8;
+}
+.addChatOption:active {
+  background-color: #b6b3b3;
+}
+
+.addChatIcon {
+  font-size: 30px;
+}
+
+.newChatModalWindow {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 600px;
+  max-width: 600px;
+}
+.searchLoading {
+  padding: 30px 0px;
+}
+.searchLoading .loader {
+  margin: 0 auto;
+}
+.noResults {
+  font-size: 20px;
+  text-align: center;
+  padding: 30px 0px;
+}
+.searchedUsers {
+  max-width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #d9d8d8 #eee;
+  /* Track styles */
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background: white; /* Track background color */
+    border-radius: 20px;
+    transition: 0.5s;
+    width: 30px !important;
+  }
+  &::-webkit-scrollbar-track:hover {
+    background: #d9d8d8;
+  }
+
+  /* Thumb styles */
+  &::-webkit-scrollbar-thumb {
+    background: #c0bebe; /* Thumb color */
+    border-radius: 20px; /* Rounder thumb shape */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a7a4a4; /* Thumb color on hover */
+  }
+}
+.backIcon {
+  background-color: #d9d8d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+@media (max-width: 1199px) {
+  .selectedUserDetails {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .sidebarMobile {
+    display: none;
+  }
+  .main-messages-section {
+    background-color: #f2f2f2;
+    height: 100vh;
+    border-radius: 25px;
+    z-index: 0 !important;
+    margin-left: 0px;
+    position: relative;
+  }
+  .main {
+    height: 100vh; /* Adjust the value to control the space from the top and bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Equal top and bottom margin */
+    background-color: white;
+    border-radius: 30px;
+    padding: 0px;
+    overflow: hidden;
+  }
+  .chats {
+    height: 60vh;
+    overflow-y: auto;
+  }
+  .chats:hover {
+    height: 60vh;
+  }
+}
+@media (min-width: 992px) {
+  .backIcon {
+    display: none;
+  }
 }

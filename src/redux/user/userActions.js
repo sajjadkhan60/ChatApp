@@ -12,3 +12,15 @@ export const logOut = () => {
     type: userActionTypes.LOG_OUT,
   };
 };
+
+export const openNewChatModal = () => {
+  return {
+    type: userActionTypes.OPENNEWCHATMODAL,
+  };
+};
+
+export const closeNewChatModal = () => {
+  return {
+    type: userActionTypes.CLOSENEWCHATMODAL,
+  };
+};

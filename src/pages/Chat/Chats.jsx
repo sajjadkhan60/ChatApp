@@ -3,13 +3,23 @@ import { useState, useEffect } from "react";
 import SingleChat from "./SingleChat";
 import Loading from "./Loading";
 import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserChats } from "../../redux/messages/messageActions";
 import { db } from "../firebaseconfig";
-import { getDocs, collection, query, where } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 
 function Chats({ user, setChats, chats }) {
   const [error, setError] = useState(false);
-
-  const getFriendDetails = async (frienduid) => {
+  const [chatSource, setChatSource] = useState("chats");
+  const dispatch = useDispatch();
+  const userChats = useSelector((state) => state.messages.chats);
+  const getFriendDetails = (frienduid) => {
     if (frienduid.length === 0) {
       // Handle the case when there are no frienduids to fetch
       return;
@@ -17,17 +27,24 @@ function Chats({ user, setChats, chats }) {
 
     const q = query(collection(db, "users"), where("uid", "in", frienduid));
 
-    try {
-      const querySnapshot = await getDocs(q);
-      const users = [];
-      querySnapshot.forEach((doc) => {
-        users.push(doc.data());
-      });
-      // Set the users to the existing chats array
-      setChats(users);
-    } catch (error) {
-      console.error("Error getting documents:", error);
-    }
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        const users = [];
+        querySnapshot.forEach((doc) => {
+          users.push(doc.data());
+        });
+        // Set the users to the existing chats array
+        setChats(users);
+        dispatch(setUserChats(users));
+      },
+      (error) => {
+        console.error("Error getting documents:", error);
+      }
+    );
+
+    // Remember to return the unsubscribe function so you can stop listening
+    return unsubscribe;
   };
 
   useEffect(() => {
@@ -73,8 +90,8 @@ function Chats({ user, setChats, chats }) {
         </div>
       ) : chats ? (
         <div className="chats">
-          {chats.map((chat) => (
-            <SingleChat chat={chat} key={chat.uid} />
+          {userChats.map((chat) => (
+            <SingleChat chat={chat} key={chat.uid} chatSource={chatSource} />
           ))}
         </div>
       ) : (

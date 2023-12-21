@@ -1,8 +1,9 @@
 import React from "react";
+import { closeNewChatModal } from "../../redux/user/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import { selectChat } from "../../redux/messages/messageActions";
+import { selectChat, setChatSource } from "../../redux/messages/messageActions";
 
-function SingleChat({ chat }) {
+function SingleChat({ chat, chatSource }) {
   const dispatch = useDispatch();
   const selectedChatUser = useSelector(
     (state) => state.messages.selectedChatUser
@@ -10,6 +11,8 @@ function SingleChat({ chat }) {
 
   function handleChatClick() {
     dispatch(selectChat(chat));
+    dispatch(setChatSource(chatSource));
+    dispatch(closeNewChatModal());
   }
 
   return (

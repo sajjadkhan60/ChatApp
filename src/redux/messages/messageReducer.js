@@ -3,6 +3,7 @@ import messageActionTypes from "./messageActionTypes";
 const initialState = {
   selectedChat: "",
   selectedChatUser: "",
+  chatSource: "",
   messages: [
     {
       id: "Test ID",
@@ -14,6 +15,7 @@ const initialState = {
   ],
   modal: null,
   modalPicSelected: null,
+  chats: null,
 };
 
 const messageReducer = (state = initialState, action) => {
@@ -48,6 +50,21 @@ const messageReducer = (state = initialState, action) => {
         ...state,
         modal: null,
         modalPicSelected: null,
+      };
+    case messageActionTypes.SETCHATSOURCE:
+      return {
+        ...state,
+        chatSource: action.payload,
+      };
+    case messageActionTypes.SETCHATS:
+      return {
+        ...state,
+        chats: action.payload,
+      };
+    case messageActionTypes.ADDUSERTOCHATS:
+      return {
+        ...state,
+        chats: [action.payload, ...state.chats],
       };
     default:
       return state;

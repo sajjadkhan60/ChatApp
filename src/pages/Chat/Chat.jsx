@@ -10,12 +10,14 @@ import Loading from "./Loading";
 import Messages from "../Messages";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
+import NewChatModal from "./NewChatModal";
 
 function Chat({ user, selectedChat, selectedChatUser }) {
   const [state, setState] = useState(null);
   const [progress, setProgress] = useState(null);
   const modal = useSelector((state) => state.messages.modal);
   const modalPic = useSelector((state) => state.messages.modalPicSelected);
+  const newChatModal = useSelector((state) => state.user.newChatModal);
 
   useEffect(() => {
     const getDocumentByUID = async () => {
@@ -43,6 +45,7 @@ function Chat({ user, selectedChat, selectedChatUser }) {
   }, []);
   return (
     <>
+      {newChatModal ? <div>{<NewChatModal />}</div> : <div></div>}
       {modal ? <div>{<Modal modalPic={modalPic} />}</div> : <div></div>}
       <LoadingBar color="black" progress={progress} />
       <div className="container">
@@ -50,14 +53,18 @@ function Chat({ user, selectedChat, selectedChatUser }) {
           <div className="col-12">
             <div className="main">
               <div className="row">
-                <div className="col-md-4">{<Sidebar />}</div>
-                <div className="col-md-8">
+                <div
+                  className={`${selectedChat ? "sidebarMobile" : ""} col-lg-4`}
+                >
+                  {<Sidebar />}
+                </div>
+                <div className="col-lg-8">
                   {selectedChat ? (
                     <div className="row">
-                      <div className="col-8 ps-0">
+                      <div className="col-lg-8 ps-0 pe-0">
                         {<Messages user={selectedChatUser} />}
                       </div>
-                      <div className="col-4 pe-0 ">
+                      <div className="selectedUserDetails col-lg-4 ps-0 pe-0 ">
                         {<SelectedChatUser user={selectedChatUser} />}
                       </div>
                     </div>

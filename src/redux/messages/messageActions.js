@@ -32,3 +32,23 @@ export const closeModal = () => {
     type: messageActionTypes.CLOSEMODAL,
   };
 };
+export const setChatSource = (source) => {
+  return {
+    type: messageActionTypes.SETCHATSOURCE,
+    payload: source,
+  };
+};
+
+export const setUserChats = (chats) => {
+  return {
+    type: messageActionTypes.SETCHATS,
+    payload: chats,
+  };
+};
+
+export const addUserToChats = (user) => {
+  return {
+    type: messageActionTypes.ADDUSERTOCHATS,
+    payload: user,
+  };
+};

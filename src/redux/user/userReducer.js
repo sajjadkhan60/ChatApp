@@ -2,6 +2,7 @@ import userActionTypes from "./userActionTypes";
 
 const initialState = {
   user: "L5OhIgi5N6hywJcfNVlqJyQyHup1",
+  newChatModal: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,6 +16,16 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+      };
+    case userActionTypes.OPENNEWCHATMODAL:
+      return {
+        ...state,
+        newChatModal: true,
+      };
+    case userActionTypes.CLOSENEWCHATMODAL:
+      return {
+        ...state,
+        newChatModal: null,
       };
     default:
       return state;

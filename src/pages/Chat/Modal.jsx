@@ -5,13 +5,19 @@ import { closeModal } from "../../redux/messages/messageActions";
 function Modal({ modalPic }) {
   const dispatch = useDispatch();
   useEffect(() => {}, []);
-  function closeModals() {
-    dispatch(closeModal());
+  function closeModals(e) {
+    if (
+      e.target.classList.contains("modals") ||
+      e.target.classList.contains("close-modals") ||
+      e.target.classList.contains("clear-icon")
+    ) {
+      dispatch(closeModal());
+    }
   }
 
   return (
     <div>
-      <div className="modals">
+      <div className="modals" onClick={closeModals}>
         <div className="container">
           <div className="content">
             <div className="close-modals" onClick={closeModals}>

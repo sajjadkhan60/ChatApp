@@ -5,14 +5,24 @@ import { addMessage } from "../redux/messages/messageActions";
 import { openModal, closeModal } from "../redux/messages/messageActions";
 import Loading from "./Chat/Loading";
 import { db } from "./firebaseconfig";
+import { setChatSource } from "../redux/messages/messageActions";
+import { addUserToChats } from "../redux/messages/messageActions";
 import { MdOutlineAttachFile } from "react-icons/md";
+import { MdOutlineArrowBack } from "react-icons/md";
+import { closeChat } from "../redux/messages/messageActions";
+
 import {
   doc,
   updateDoc,
   arrayUnion,
   getDoc,
+  where,
+  getDocs,
+  addDoc,
   setDoc,
   onSnapshot,
+  query,
+  collection,
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -26,7 +36,10 @@ function Messages({ user }) {
   const [Dbmessages, setDbMessages] = useState([]);
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.user.user);
+  const chatSource = useSelector((state) => state.messages.chatSource);
+  const userChats = useSelector((state) => state.messages.chats);
   const reduxMessages = useSelector((state) => state.messages.messages);
+
   const selectedChatUser = useSelector(
     (state) => state.messages.selectedChatUser
   );
@@ -130,7 +143,56 @@ function Messages({ user }) {
     setFiles(null);
   };
 
+  // Assuming you have a function to handle adding a friend
+  async function addFriend() {
+    try {
+      // Reference to the 'chats' collection
+      const chatsCollection = collection(db, "chats");
+
+      // Query to find the document with uid equal to loggedInUser
+      const querySnapshot = await getDocs(
+        query(chatsCollection, where("uid", "==", loggedInUser))
+      );
+
+      if (querySnapshot.size > 0) {
+        // Document exists, update the 'frienduid' array
+        const existingChatDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(existingChatDocRef, {
+          frienduid: arrayUnion(selectedChatUser.uid),
+        });
+
+        console.log(`Friend ${selectedChatUser.uid} added successfully`);
+      } else {
+        // Document doesn't exist, create it with the 'frienduid' array
+        const newChatDocRef = await addDoc(chatsCollection, {
+          uid: loggedInUser,
+          frienduid: [selectedChatUser.uid],
+        });
+
+        console.log(`Friend ${selectedChatUser.uid} added successfully`);
+      }
+    } catch (error) {
+      console.error("Error adding friend:", error);
+    }
+    let chatSource = "chats";
+    dispatch(setChatSource(chatSource));
+  }
+
   async function sendMessage(e) {
+    if (chatSource == "search") {
+      // Use the find method to check if selectedChatUser is in userChats
+      const isUserInChats = userChats.find(
+        (user) => user.uid === selectedChatUser.uid
+      );
+
+      if (isUserInChats) {
+      } else {
+        dispatch(addUserToChats(selectedChatUser));
+      }
+      addFriend();
+    } else {
+      console.log("ChatSource is Chats");
+    }
     console.log("File is", files);
     e.preventDefault();
     if (message == "" && files == null) {
@@ -230,11 +292,22 @@ function Messages({ user }) {
       // );
     }
   }
+  function clear() {
+    dispatch(closeChat());
+  }
 
   return (
     <div>
       <div className="main-messages-section">
-        <div className="heading">{user.name}</div>
+        <div
+          className="heading d-flex "
+          style={{ gap: "20px", alignItems: "center" }}
+        >
+          <div className="backIcon" onClick={clear}>
+            <MdOutlineArrowBack />
+          </div>
+          <div>{user.name}</div>
+        </div>
         {files ? (
           <div className="selectFilesArea">
             <div
